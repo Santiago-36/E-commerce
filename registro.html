@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function guardar() {
+            const id = document.getElementById("txtId").value;
+            const nombre = document.getElementById("txtNombre").value;
+            const talla = document.getElementById("txtTalla").value;
+            const descripcion = document.getElementById("txtDescripcion").value;
+            const precio = document.getElementById("txtPrecio").value;
+            const cantidad = document.getElementById("txtCantidad").value;
+
+            data = {}
+            data.id = parseInt(id)
+            data.nombre = nombre
+            data.talla = talla
+            data.descripcion = descripcion
+            data.precio = parseFloat(precio)
+            data.cantidad = parseFloat(cantidad)
+
+            fetch("http://localhost:8000/products",
+                {
+                    headers:{
+                        "Content-Type": "application/json"
+                    },
+                    method: "POST",
+                    body: JSON.stringify(data)
+                }
+            )
+                .then(response => response.json())
+                .then(data => {
+                    alert(data.msg)
+                })
+
+        }
+    </script>
+</head>
+<body>
+    <form action="">
+        <label for="">id</label>
+        <input type="text" id="txtId"><br>
+        <label for="">nombre</label>
+        <input type="text" id="txtNombre"><br>
+        <label for="">talla</label>
+        <input type="text" id="txtTalla"><br>
+        <label for="">descripcion</label>
+        <input type="text" id="txtDescripcion"><br>
+        <label for="">precio</label>
+        <input type="text" id="txtPrecio"><br>
+        <label for="">cantidad</label>
+        <input type="text" id="txtCantidad">
+        <button type="button" onclick="guardar()">Registrar</button>
+    </form>
+</body>
+</html>

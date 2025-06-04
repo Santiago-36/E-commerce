@@ -25,9 +25,11 @@ supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
 class Product(BaseModel):
     id: int
     nombre: str
-    cantidad: int
+    talla : str
+    descripcion: str
     precio: float
-    foto : str
+    cantidad: float
+
     
 class clientes(BaseModel):
     id: int
