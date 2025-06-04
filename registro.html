@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="style.css">
     <script>
         function guardar() {
             const id = document.getElementById("txtId").value;
@@ -39,20 +40,66 @@
     </script>
 </head>
 <body>
-    <form action="">
-        <label for="">id</label>
-        <input type="text" id="txtId"><br>
-        <label for="">nombre</label>
-        <input type="text" id="txtNombre"><br>
-        <label for="">talla</label>
-        <input type="text" id="txtTalla"><br>
-        <label for="">descripcion</label>
-        <input type="text" id="txtDescripcion"><br>
-        <label for="">precio</label>
-        <input type="text" id="txtPrecio"><br>
-        <label for="">cantidad</label>
-        <input type="text" id="txtCantidad">
-        <button type="button" onclick="guardar()">Registrar</button>
-    </form>
-</body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="header-content">
+                <div class="logo-section">
+                    <img src="../Proyecto Ecommerce/imagenes/WhatsApp Image 2025-06-01 at 13.55.50 (1).jpeg" alt="Yumo Logo">
+                    <div class="logo-text">
+                        <div class="logo-title">YUMOTHINGS</div>
+                        <div class="logo-subtitle">Viste Yumo, marca la diferencia</div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <br>
+        <br>
+    <div class="card">
+        <center>
+        <form action="" >
+            <label for="">id</label>
+            <input type="text" id="txtId"><br>
+            <label for="">nombre</label>
+            <input type="text" id="txtNombre"><br>
+            <label for="">talla</label>
+            <input type="text" id="txtTalla"><br>
+            <label for="">descripcion</label>
+            <input type="text" id="txtDescripcion"><br>
+            <label for="">precio</label>
+            <input type="text" id="txtPrecio"><br>
+            <label for="">cantidad</label>
+            <input type="text" id="txtCantidad"><br>
+            <button type="button" onclick="guardar()">Registrar</button>
+        </center>
+        </form>
+    </div>
+    </div>
+            <!-- Footer -->
+            <footer>
+                <div class="footer-content">
+                    <div class="footer-section">
+                        <h3>Contacto</h3>
+                        <p>📧 yumothings@gmail.com</p>
+                        <p>📞 +57 324 8483 000</p>
+                        <p>📍 Barranquilla, Colombia</p>
+                    </div>
+                    <div class="footer-section">
+                        <h3>Servicios</h3>
+                        <p><a href="#">Domicilio</a></p>
+                        <p><a href="#">Promociones</a></p>
+                        <p><a href="#">Descuentos</a></p>
+                    </div>
+                    <div class="footer-section">
+                        <h3>Síguenos</h3>
+                        <p><a href="https://www.facebook.com/share/1AqD2J3Cjb/">Facebook</a></p>
+                        <p><a href="https://www.instagram.com/yumothings_?igsh=MWh4OW13cWI1bmowZQ==">Instagram</a></p>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2025 Yumothings. Todos los derechos reservados.</p>
+                </div>
+            </footer>
+        </div>
+    </body>
 </html>
