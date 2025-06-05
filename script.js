@@ -78,25 +78,67 @@ function mostrarImagen(event){
 
 // script registro
 function guardar() {
-    const id = document.getElementById("txtId").value;
+
     const nombre = document.getElementById("txtNombre").value;
     const talla = document.getElementById("txtTalla").value;
     const descripcion = document.getElementById("txtDescripcion").value;
     const precio = document.getElementById("txtPrecio").value;
     const cantidad = document.getElementById("txtCantidad").value;
-    document.getElementById("txtId").value="";
+
     document.getElementById("txtNombre").value="";
     document.getElementById("txtTalla").value="";
     document.getElementById("txtDescripcion").value="";
     document.getElementById("txtPrecio").value="";
     document.getElementById("txtCantidad").value="";
     data = {}
-    data.id = parseInt(id)
+
     data.nombre = nombre
     data.talla = talla
     data.descripcion = descripcion
     data.precio = parseFloat(precio)
     data.cantidad = parseFloat(cantidad)
+
+    fetch("http://localhost:8000/products",
+        {
+            headers:{
+                "Content-Type": "application/json"
+            },
+            method: "POST",
+            body: JSON.stringify(data)
+        }
+    )
+        .then(response => response.json())
+        .then(data => {
+            if (data.status=="ok"){
+                alert(data.msg)
+            }
+            else{
+                alert(data.msg.details)
+            }
+        })
+
+}
+//registro de usuario
+function registrar() {
+
+    const nombre = document.getElementById("nombre").value;
+    const apellido = document.getElementById("apellido").value;
+    const correo = document.getElementById("correo").value;
+    const telefono = document.getElementById("telefono").value;
+    const password = document.getElementById("password").value;
+
+    document.getElementById("nombre").value="";
+    document.getElementById("apellido").value="";
+    document.getElementById("correo").value="";
+    document.getElementById("telefono").value="";
+    document.getElementById("password").value="";
+    data = {}
+
+    data.nombre = nombre
+    data.apellido = apellido
+    data.correo = correo
+    data.telefono = parseFloat(telefono)
+    data.password = password
 
     fetch("http://localhost:8000/products",
         {

@@ -23,7 +23,6 @@ supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
 
 # Creación de modelos
 class Product(BaseModel):
-    id: int
     nombre: str
     talla : str
     descripcion: str
@@ -32,11 +31,12 @@ class Product(BaseModel):
 
     
 class clientes(BaseModel):
-    id: int
-    name: str
+    nombre: str
     apellido: str
+    correo: str
     telefono: float
-    email: str
+    password: str
+    
     
 class facturas(BaseModel):
     id: int
@@ -48,6 +48,7 @@ class facturas(BaseModel):
 @app.post("/products") # Ruta
 def create_product(prod: Product): # Endpoint
     try:
+        print(prod.model_dump())
         supabase.table("productos").insert(prod.model_dump()).execute()
         return {"status":"ok", "msg":"Guardado con éxito"}
     except Exception as ex:
@@ -57,8 +58,20 @@ def create_product(prod: Product): # Endpoint
 def list_products():
     res = supabase.table("productos").select("").execute()
     return res.data
-    
+# ingreso de usuarios
+@app.post("/products") # Ruta
+def create_clientes(prod: clientes): # Endpoint
+    try:
+        print(prod.model_dump())
+        supabase.table("clientes").insert(prod.model_dump()).execute()
+        return {"status":"ok", "msg":"Guardado con éxito"}
+    except Exception as ex:
+        return {"status": "error", "msg": ex}
 
+@app.get("/products", response_model=List[clientes]) # Ruta
+def list_clientes():
+    res = supabase.table("clientes").select("").execute()
+    return res.data
 
 
 
