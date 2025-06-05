@@ -429,6 +429,7 @@ form{
     width: 40%;
 }
 .formulario{
+    display:flexbox;
     width: 320px;
     margin: 0 auto;
     padding: 20px;

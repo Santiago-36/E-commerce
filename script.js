@@ -109,7 +109,12 @@ function guardar() {
     )
         .then(response => response.json())
         .then(data => {
-            alert(data.msg)
+            if (data.status=="ok"){
+                alert(data.msg)
+            }
+            else{
+                alert(data.msg.details)
+            }
         })
 
 }
