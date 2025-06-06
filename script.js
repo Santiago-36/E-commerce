@@ -10,7 +10,6 @@ let cart = [];
             // Simple notification
             alert(`${productName} agregado al carrito!`);
         }
-
         function toggleCart() {
             if (cart.length === 0) {
                 alert('El carrito está vacío');
@@ -22,6 +21,30 @@ let cart = [];
             
             alert(`Carrito de compras:\n\n${cartItems}\n\nTotal: $${total.toLocaleString()} COP`);
         }
+        
+function exportExcel() {
+    // Estructura de datos para la hoja de cálculo
+    const ws_data = [["Producto", "Precio","subtotal"]];
+    let total = cart.reduce((sum, item) => sum + item.price, 0);
+    // Llenar los datos del carrito
+    cart.forEach(item => {
+        const subtotal =  item.price;
+        ws_data.push([item.name, item.price,subtotal]);
+    });
+
+    ws_data.push(["", "Total", total]);
+
+    
+    // Crear hoja y libro de Excel
+    const ws = XLSX.utils.aoa_to_sheet(ws_data);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Carrito");
+
+    // Generar y descargar el archivo Excel
+    XLSX.writeFile(wb, "carrito.xlsx");
+}
+        
+        
 
         function filterCategory(category) {
             const cards = document.querySelectorAll('.card');
@@ -118,27 +141,22 @@ function guardar() {
         })
 
 }
-//registro de usuario
+//factura
 function registrar() {
 
-    const nombre = document.getElementById("nombre").value;
-    const apellido = document.getElementById("apellido").value;
-    const correo = document.getElementById("correo").value;
-    const telefono = document.getElementById("telefono").value;
-    const password = document.getElementById("password").value;
+    const fecha = document.getElementById("fecha").value;
+    const idCliente = document.getElementById("idCliente").value;
+    const total = document.getElementById("total").value;
 
-    document.getElementById("nombre").value="";
-    document.getElementById("apellido").value="";
-    document.getElementById("correo").value="";
-    document.getElementById("telefono").value="";
-    document.getElementById("password").value="";
+
+    document.getElementById("fecha").value="";
+    document.getElementById("idCliente").value="";
+    document.getElementById("total").value="";
     data = {}
 
-    data.nombre = nombre
-    data.apellido = apellido
-    data.correo = correo
-    data.telefono = parseFloat(telefono)
-    data.password = password
+    data.fecha = fecha
+    data.idCliente = idCliente
+    data.total = parseFloat(total)
 
     fetch("http://localhost:8000/products",
         {

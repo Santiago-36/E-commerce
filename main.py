@@ -39,9 +39,8 @@ class clientes(BaseModel):
     
     
 class facturas(BaseModel):
-    id: int
     fecha: datetime
-    idClientes: int
+    idCliente: int
     total: float
     
     
