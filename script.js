@@ -8,13 +8,29 @@ let cart = [];
             document.getElementById('cartCount').textContent = cartCount;
             
             // Simple notification
-            alert(`${productName} agregado al carrito!`);
+            Toastify({
+            text: "Añadido correctamente",
+            duration: 3000,
+            close: true,
+            gravity: "top", // top or bottom
+            position: "right", // left, center or right
+            backgroundColor: "#4caf50",
+        }).showToast();
         }
         function toggleCart() {
             if (cart.length === 0) {
-                alert('El carrito está vacío');
+                Toastify({
+            text: "Aún no hay nada en el carrito",
+            duration: 3000,
+            close: true,
+            gravity: "top", // top or bottom
+            position: "right", // left, center or right
+            backgroundColor: "red",
+        }).showToast();
                 return;
             }
+
+
             
             let cartItems = cart.map(item => `${item.name} - $${item.price.toLocaleString()} COP`).join('\n');
             let total = cart.reduce((sum, item) => sum + item.price, 0);
