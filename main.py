@@ -38,10 +38,10 @@ class clientes(BaseModel):
     password: str
     
     
-class facturas(BaseModel):
+class factura(BaseModel):
     fecha: datetime
-    idCliente: int
     total: float
+    nombre: str
     
     
 @app.post("/products") # Ruta
@@ -58,18 +58,18 @@ def list_products():
     res = supabase.table("productos").select("").execute()
     return res.data
 # ingreso de usuarios
-@app.post("/products") # Ruta
-def create_clientes(prod: clientes): # Endpoint
+@app.post("/factura") # Ruta
+def create_factura(prod: factura): # Endpoint
     try:
         print(prod.model_dump())
-        supabase.table("clientes").insert(prod.model_dump()).execute()
-        return {"status":"ok", "msg":"Guardado con éxito"}
+        supabase.table("factura").insert(prod.model_dump()).execute()
+        return {"status":"ok", "msg":"Compra exitosa"}
     except Exception as ex:
         return {"status": "error", "msg": ex}
 
-@app.get("/products", response_model=List[clientes]) # Ruta
-def list_clientes():
-    res = supabase.table("clientes").select("").execute()
+@app.get("/factura", response_model=List[factura]) # Ruta
+def list_factura():
+    res = supabase.table("factura").select("").execute()
     return res.data
 
 
