@@ -142,39 +142,3 @@ function guardar() {
 
 }
 //factura
-function registrar() {
-
-    const fecha = document.getElementById("fecha").value;
-    const idCliente = document.getElementById("idCliente").value;
-    const total = document.getElementById("total").value;
-
-
-    document.getElementById("fecha").value="";
-    document.getElementById("idCliente").value="";
-    document.getElementById("total").value="";
-    data = {}
-
-    data.fecha = fecha
-    data.idCliente = idCliente
-    data.total = parseFloat(total)
-
-    fetch("http://localhost:8000/products",
-        {
-            headers:{
-                "Content-Type": "application/json"
-            },
-            method: "POST",
-            body: JSON.stringify(data)
-        }
-    )
-        .then(response => response.json())
-        .then(data => {
-            if (data.status=="ok"){
-                alert(data.msg)
-            }
-            else{
-                alert(data.msg.details)
-            }
-        })
-
-}
