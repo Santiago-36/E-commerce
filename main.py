@@ -6,6 +6,8 @@ from supabase import create_client, Client
 import os
 from dotenv import load_dotenv
 from fastapi.middleware.cors import CORSMiddleware
+from datetime import datetime
+
 
 load_dotenv()
 
@@ -39,7 +41,7 @@ class clientes(BaseModel):
     
     
 class factura(BaseModel):
-    fecha: datetime
+    fecha: str
     total: float
     nombre: str
     
@@ -57,7 +59,7 @@ def create_product(prod: Product): # Endpoint
 def list_products():
     res = supabase.table("productos").select("").execute()
     return res.data
-# ingreso de usuarios
+# ingreso de factura
 @app.post("/factura") # Ruta
 def create_factura(prod: factura): # Endpoint
     try:
