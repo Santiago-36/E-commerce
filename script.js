@@ -2,65 +2,31 @@
 let cart = [];
 let cartCount = 0;
 
-<<<<<<< HEAD
 function addToCart(productName, price) {
   cart.push({ name: productName, price: price });
   cartCount++;
   document.getElementById("cartCount").textContent = cartCount;
-=======
-        function addToCart(productName, price) {
-            cart.push({ name: productName, price: price });
-            cartCount++;
-            document.getElementById('cartCount').textContent = cartCount;
-            
-            // Simple notification
-            Toastify({
-            text: "Añadido correctamente",
-            duration: 3000,
-            close: true,
-            gravity: "top", // top or bottom
-            position: "right", // left, center or right
-            backgroundColor: "#4caf50",
-        }).showToast();
-        }
-        function toggleCart() {
-            if (cart.length === 0) {
-                Toastify({
-            text: "Aún no hay nada en el carrito",
-            duration: 3000,
-            close: true,
-            gravity: "top", // top or bottom
-            position: "right", // left, center or right
-            backgroundColor: "red",
-        }).showToast();
-                return;
-            }
-
-
-            
-            let cartItems = cart.map(item => `${item.name} - $${item.price.toLocaleString()} COP`).join('\n');
-            let total = cart.reduce((sum, item) => sum + item.price, 0);
-            
-            alert(`Carrito de compras:\n\n${cartItems}\n\nTotal: $${total.toLocaleString()} COP`);
-        }
-        
-function exportExcel() {
-    // Estructura de datos para la hoja de cálculo
-    const ws_data = [["Producto", "Precio","subtotal"]];
-    let total = cart.reduce((sum, item) => sum + item.price, 0);
-    // Llenar los datos del carrito
-    cart.forEach(item => {
-        const subtotal =  item.price;
-        ws_data.push([item.name, item.price,subtotal]);
-    });
->>>>>>> 6f1755377e4511f65db01cf3e529d3b927fd1d3c
 
   // Simple notification
-  alert(`${productName} agregado al carrito!`);
+  Toastify({
+    text: "Añadido correctamente",
+    duration: 3000,
+    close: true,
+    gravity: "top", // top or bottom
+    position: "right", // left, center or right
+    backgroundColor: "#4caf50",
+  }).showToast();
 }
 function toggleCart() {
   if (cart.length === 0) {
-    alert("El carrito está vacío");
+    Toastify({
+      text: "Aún no hay nada en el carrito",
+      duration: 3000,
+      close: true,
+      gravity: "top", // top or bottom
+      position: "right", // left, center or right
+      backgroundColor: "red",
+    }).showToast();
     return;
   }
 
@@ -73,6 +39,8 @@ function toggleCart() {
     `Carrito de compras:\n\n${cartItems}\n\nTotal: $${total.toLocaleString()} COP`
   );
 }
+
+
 
 function exportExcel() {
   // Estructura de datos para la hoja de cálculo
@@ -147,4 +115,3 @@ function mostrarImagen(event) {
   let imagen = document.getElementById("verImagen");
   imagen.src = URL.createObjectURL(event.target.files[0]);
 }
-
