@@ -9,7 +9,7 @@ function addToCart(productName, price) {
 
   // Simple notification
   Toastify({
-    text: "Añadido correctamente",
+    text:  productName+" Añadido correctamente",
     duration: 3000,
     close: true,
     gravity: "top", // top or bottom
