@@ -195,6 +195,36 @@
             </div>
         </footer>
     </div>
+
+<div id="cartModal" class="cart-modal">
+    <div class="cart-modal-content">
+            <span class="cart-close" onclick="closeCart()">&times;</span>
+            <h2>🛒 Carrito de Compras</h2>
+            
+            <div class="success-message" id="successMessage">
+                ✅ ¡Compra realizada con éxito!
+            </div>
+            
+            <div id="cartItemsList">
+                <!-- Aquí se mostrarán los productos -->
+            </div>
+            
+            <div class="cart-total" id="cartTotal">
+                Total: $0 COP
+            </div>
+            
+            <!-- Botones del carrito -->
+            <div class="cart-buttons">
+                <button class="cart-buy-btn" onclick="buyCart()">
+                    💳 Comprar
+                </button>
+                <button class="cart-close-btn" onclick="closeCart()">
+                    ❌ Finalizar
+                </button>
+            </div>
+     </div>
+ </div>
+
     <script src="script.js"></script>
 </body>
 </html>

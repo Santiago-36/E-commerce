@@ -18,30 +18,105 @@ function addToCart(productName, price) {
     backgroundColor: "#4caf50",
   }).showToast();
 }
-function toggleCart() {
-  if (cart.length === 0) {
-    Toastify({
-      text: "Aún no hay nada en el carrito",
-      duration: 3000,
-      close: true,
-      gravity: "top", // top or bottom
-      position: "right", // left, center or right
-      backgroundColor: "red",
-    }).showToast();
-    return;
-  }
 
-  let cartItems = cart
-    .map((item) => `${item.name} - $${item.price.toLocaleString()} COP`)
-    .join("\n");
-  let total = cart.reduce((sum, item) => sum + item.price, 0);
+// Nueva función toggleCart con modal
+        function toggleCart() {
+            if (cart.length === 0) {
+                Toastify({
+                    text: "Aún no hay nada en el carrito",
+                    duration: 3000,
+                    close: true,
+                    gravity: "top",
+                    position: "right",
+                    backgroundColor: "red",
+                }).showToast();
+                return;
+            }
 
-  alert(
-    `Carrito de compras:\n\n${cartItems}\n\nTotal: $${total.toLocaleString()} COP`
-  );
-}
+            // Mostrar el modal
+            const modal = document.getElementById('cartModal');
+            const cartItemsList = document.getElementById('cartItemsList');
+            const cartTotal = document.getElementById('cartTotal');
+            
+            // Limpiar contenido anterior
+            cartItemsList.innerHTML = '';
+            
+            // Agregar cada producto al modal
+            cart.forEach((item, index) => {
+                const cartItem = document.createElement('div');
+                cartItem.className = 'cart-item';
+                cartItem.innerHTML = `
+                    <div class="cart-item-info">
+                        <div class="cart-item-name">${item.name}</div>
+                        <div class="cart-item-price">$${item.price.toLocaleString()} COP</div>
+                    </div>
+                `;
+                cartItemsList.appendChild(cartItem);
+            });
+            
+            // Calcular y mostrar total
+            let total = cart.reduce((sum, item) => sum + item.price, 0);
+            cartTotal.textContent = `Total: $${total.toLocaleString()} COP`;
+            
+            // Mostrar el modal
+            modal.style.display = 'block';
+            
+            // Ocultar mensaje de éxito si estaba visible
+            document.getElementById('successMessage').style.display = 'none';
+        }
 
+        // Función para cerrar el carrito (botón Finalizar)
+        function closeCart() {
+            const modal = document.getElementById('cartModal');
+            modal.style.display = 'none';
+        }
 
+        // Función para comprar (botón Comprar)
+        function buyCart() {
+            if (cart.length === 0) {
+                Toastify({
+                    text: "Tu carrito está vacío",
+                    duration: 3000,
+                    close: true,
+                    gravity: "top",
+                    position: "right",
+                    backgroundColor: "red",
+                }).showToast();
+                return;
+            }
+            
+            // Mostrar mensaje de éxito
+            const successMessage = document.getElementById('successMessage');
+            successMessage.style.display = 'block';
+            
+            // Limpiar el carrito después de 2 segundos
+            setTimeout(() => {
+                cart = [];
+                cartCount = 0;
+                document.getElementById("cartCount").textContent = cartCount;
+                
+                // Actualizar la vista del carrito
+                toggleCart();
+                
+                // Mostrar notificación
+                Toastify({
+                    text: "¡Compra realizada con éxito!",
+                    duration: 3000,
+                    close: true,
+                    gravity: "top",
+                    position: "right",
+                    backgroundColor: "#4caf50",
+                }).showToast();
+            }, 2000);
+        }
+
+        // Cerrar modal al hacer clic fuera de él
+        window.onclick = function(event) {
+            const modal = document.getElementById('cartModal');
+            if (event.target === modal) {
+                closeCart();
+            }
+        }
 
 function exportExcel() {
   // Estructura de datos para la hoja de cálculo
