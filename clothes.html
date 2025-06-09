@@ -20,7 +20,6 @@
                         <div class="logo-subtitle">Viste Yumo, marca la diferencia</div>
                     </div>
                 </div>
-                
                 <div class="search-bar">
                     <input type="text" placeholder="Buscar prenda..." id="searchInput">
                 </div>
@@ -215,12 +214,15 @@
             
             <!-- Botones del carrito -->
             <div class="cart-buttons">
-                <button class="cart-buy-btn" onclick="buyCart()">
+                <form action="" class="formulario">
+                <input type="text" placeholder=" Ingresar Nombre" id="nombre" name="nombre" required/>
+                <button type="submit" class="cart-buy-btn" onclick="buyCart();factura();" id="comprar">
                     💳 Comprar
                 </button>
-                <button class="cart-close-btn" onclick="closeCart()">
+                <button type="submit" class="cart-close-btn" onclick="closeCart()">
                     ❌ Finalizar
                 </button>
+                </form>
             </div>
      </div>
  </div>

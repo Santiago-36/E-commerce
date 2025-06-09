@@ -425,12 +425,10 @@ footer {
 .card {
     animation: fadeIn 0.8s ease-in-out;
 }
-form{
-    width: 40%;
-}
+
 .formulario{
     display:flexbox;
-    width: 320px;
+    width: 90%;
     margin: 0 auto;
     padding: 20px;
     border: 1px solid rgb(109, 108, 184);
@@ -440,7 +438,7 @@ form{
     color: #c9cbcb;
 }
 .formulario input, .formulario button, .formulario textarea{
-    width: 85%;
+    width: 28%;
     padding: 10px;
     margin: 10px;
 }
@@ -608,3 +606,6 @@ form{
                 margin: 10% auto;
             }
         }
+#cartItemsList{
+    max-height: 15%;
+}

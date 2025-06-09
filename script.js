@@ -1,7 +1,7 @@
 // acript del carrito
 let cart = [];
 let cartCount = 0;
-let total = 0
+let total = 0;
 
 function addToCart(productName, price) {
   cart.push({ name: productName, price: price });
@@ -10,7 +10,7 @@ function addToCart(productName, price) {
 
   // Simple notification
   Toastify({
-    text:  productName+" Añadido correctamente",
+    text: productName + " Añadido correctamente",
     duration: 3000,
     close: true,
     gravity: "top", // top or bottom
@@ -20,103 +20,117 @@ function addToCart(productName, price) {
 }
 
 // Nueva función toggleCart con modal
-        function toggleCart() {
-            if (cart.length === 0) {
-                Toastify({
-                    text: "Aún no hay nada en el carrito",
-                    duration: 3000,
-                    close: true,
-                    gravity: "top",
-                    position: "right",
-                    backgroundColor: "red",
-                }).showToast();
-                return;
-            }
+function toggleCart() {
+  if (cart.length === 0) {
+    Toastify({
+      text: "Aún no hay nada en el carrito",
+      duration: 3000,
+      close: true,
+      gravity: "top",
+      position: "right",
+      backgroundColor: "red",
+    }).showToast();
+    return;
+  }
 
-            // Mostrar el modal
-            const modal = document.getElementById('cartModal');
-            const cartItemsList = document.getElementById('cartItemsList');
-            const cartTotal = document.getElementById('cartTotal');
-            
-            // Limpiar contenido anterior
-            cartItemsList.innerHTML = '';
-            
-            // Agregar cada producto al modal
-            cart.forEach((item, index) => {
-                const cartItem = document.createElement('div');
-                cartItem.className = 'cart-item';
-                cartItem.innerHTML = `
+  // Mostrar el modal
+  const modal = document.getElementById("cartModal");
+  const cartItemsList = document.getElementById("cartItemsList");
+  const cartTotal = document.getElementById("cartTotal");
+
+  // Limpiar contenido anterior
+  cartItemsList.innerHTML = "";
+
+  // Agregar cada producto al modal
+  cart.forEach((item, index) => {
+    const cartItem = document.createElement("div");
+    cartItem.className = "cart-item";
+    cartItem.innerHTML = `
                     <div class="cart-item-info">
                         <div class="cart-item-name">${item.name}</div>
                         <div class="cart-item-price">$${item.price.toLocaleString()} COP</div>
                     </div>
                 `;
-                cartItemsList.appendChild(cartItem);
-            });
-            
-            // Calcular y mostrar total
-            let total = cart.reduce((sum, item) => sum + item.price, 0);
-            cartTotal.textContent = `Total: $${total.toLocaleString()} COP`;
-            
-            // Mostrar el modal
-            modal.style.display = 'block';
-            
-            // Ocultar mensaje de éxito si estaba visible
-            document.getElementById('successMessage').style.display = 'none';
-        }
+    cartItemsList.appendChild(cartItem);
+  });
 
-        // Función para cerrar el carrito (botón Finalizar)
-        function closeCart() {
-            const modal = document.getElementById('cartModal');
-            modal.style.display = 'none';
-        }
+  // Calcular y mostrar total
+  let total = cart.reduce((sum, item) => sum + item.price, 0);
+  cartTotal.textContent = `Total: $${total.toLocaleString()} COP`;
 
-        // Función para comprar (botón Comprar)
-        function buyCart() {
-            if (cart.length === 0) {
-                Toastify({
-                    text: "Tu carrito está vacío",
-                    duration: 3000,
-                    close: true,
-                    gravity: "top",
-                    position: "right",
-                    backgroundColor: "red",
-                }).showToast();
-                return;
-            }
-            
-            // Mostrar mensaje de éxito
-            const successMessage = document.getElementById('successMessage');
-            successMessage.style.display = 'block';
-            
-            // Limpiar el carrito después de 2 segundos
-            setTimeout(() => {
-                cart = [];
-                cartCount = 0;
-                document.getElementById("cartCount").textContent = cartCount;
-                
-                // Actualizar la vista del carrito
-                toggleCart();
-                
-                // Mostrar notificación
-                Toastify({
-                    text: "¡Compra realizada con éxito!",
-                    duration: 3000,
-                    close: true,
-                    gravity: "top",
-                    position: "right",
-                    backgroundColor: "#4caf50",
-                }).showToast();
-            }, 2000);
-        }
+  // Mostrar el modal
+  modal.style.display = "block";
 
-        // Cerrar modal al hacer clic fuera de él
-        window.onclick = function(event) {
-            const modal = document.getElementById('cartModal');
-            if (event.target === modal) {
-                closeCart();
-            }
-        }
+  // Ocultar mensaje de éxito si estaba visible
+  document.getElementById("successMessage").style.display = "none";
+}
+
+// Función para cerrar el carrito (botón Finalizar)
+function closeCart() {
+  const modal = document.getElementById("cartModal");
+  modal.style.display = "none";
+}
+
+// Función para comprar (botón Comprar)
+function buyCart() {
+  document.getElementById("comprar").addEventListener("click", function (event) {
+    event.preventDefault(); // Evita la recarga de la página
+    console.log("Botón presionado sin recargar la página");
+  });
+
+  // Capturar el valor del nombre correctamente
+  let nombre = document.getElementById("nombre").value.trim();
+  const successMessage = document.getElementById("successMessage");
+
+  if (nombre === "") {
+    successMessage.style.display = "none";
+  } else {
+    successMessage.style.display = "block";
+    // Limpiar el carrito después de 2 segundos
+  setTimeout(() => {
+    cart = [];
+    cartCount = 0;
+    document.getElementById("cartCount").textContent = cartCount;
+
+    // Actualizar la vista del carrito
+    toggleCart();
+
+    // Mostrar notificación de éxito
+    Toastify({
+      text: "¡Compra realizada con éxito!",
+      duration: 3000,
+      close: true,
+      gravity: "top",
+      position: "right",
+      backgroundColor: "#4caf50",
+    }).showToast();
+  }, 2000);
+  }
+
+  // Verificar si el carrito está vacío antes de proceder
+  if (cart.length === 0) {
+    Toastify({
+      text: "Tu carrito está vacío",
+      duration: 3000,
+      close: true,
+      gravity: "top",
+      position: "right",
+      backgroundColor: "red",
+    }).showToast();
+    return;
+  }
+
+  
+}
+
+
+// Cerrar modal al hacer clic fuera de él
+window.onclick = function (event) {
+  const modal = document.getElementById("cartModal");
+  if (event.target === modal) {
+    closeCart();
+  }
+};
 
 function exportExcel() {
   // Estructura de datos para la hoja de cálculo
@@ -228,19 +242,18 @@ function guardar() {
       }
     });
 }
-
 //
 function factura() {
   const fecha = new Date().toLocaleDateString();
   document.getElementById("fecha").textContent = fecha;
   let total = cart.reduce((sum, item) => sum + item.price, 0);
   const nombre = document.getElementById("nombre").value;
-  
-  document.getElementById("nombre").value = "";
 
+  document.getElementById("nombre").value = "";
   data = {};
 
-  data.fecha = fecha;
+  data.fechalse;
+  a = fecha;
   data.total = parseFloat(total);
   data.nombre = nombre;
 
