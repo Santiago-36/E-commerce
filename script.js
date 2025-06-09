@@ -252,8 +252,7 @@ function factura() {
   document.getElementById("nombre").value = "";
   data = {};
 
-  data.fechalse;
-  a = fecha;
+  data.fecha = fecha;
   data.total = parseFloat(total);
   data.nombre = nombre;
 
