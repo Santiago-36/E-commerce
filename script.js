@@ -86,29 +86,12 @@ function buyCart() {
     successMessage.style.display = "none";
   } else {
     successMessage.style.display = "block";
-    // Limpiar el carrito después de 2 segundos
-  setTimeout(() => {
-    cart = [];
-    cartCount = 0;
-    document.getElementById("cartCount").textContent = cartCount;
-
-    // Actualizar la vista del carrito
-    toggleCart();
-
-    // Mostrar notificación de éxito
-    Toastify({
-      text: "¡Compra realizada con éxito!",
-      duration: 3000,
-      close: true,
-      gravity: "top",
-      position: "right",
-      backgroundColor: "#4caf50",
-    }).showToast();
-  }, 2000);
+    
+    
   }
 
   // Verificar si el carrito está vacío antes de proceder
-  if (cart.length === 0) {
+if (cart.length === 0) {
     Toastify({
       text: "Tu carrito está vacío",
       duration: 3000,
@@ -295,6 +278,7 @@ function guardar() {
     });
 }
 //
+data = {};
 function factura() {
   const fecha = new Date().toLocaleDateString();
   document.getElementById("fecha").textContent = fecha;
@@ -302,7 +286,6 @@ function factura() {
   const nombre = document.getElementById("nombre").value;
 
   document.getElementById("nombre").value = "";
-  data = {};
 
   data.fecha = fecha;
   data.total = parseFloat(total);
@@ -318,7 +301,22 @@ function factura() {
     .then((response) => response.json())
     .then((data) => {
       if (data.status == "ok") {
-        alert(data.msg);
+        // Limpiar el carrito después de 2 segundos
+    setTimeout(() => {
+      cart = [];
+      cartCount = 0;
+      document.getElementById("cartCount").textContent = cartCount;
+
+      // Mostrar notificación de éxito
+      Toastify({
+        text: data.msg,
+        duration: 3000,
+        close: true,
+        gravity: "top",
+        position: "right",
+        backgroundColor: "#4caf50",
+      }).showToast();
+    }, 2000);
       } else {
         alert(data.msg.details);
       }
