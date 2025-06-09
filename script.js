@@ -2,6 +2,7 @@
 let cart = [];
 let cartCount = 0;
 let total = 0;
+let Id = "";
 
 function addToCart(productName, price) {
   cart.push({ name: productName, price: price });
@@ -127,8 +128,8 @@ function exportExcel() {
 
   ws_data.push(["", "Total", total]);
   ws_data.push(["", "", ""]);
-  ws_data.push(["Nombre", "Nombre del cliemte", ""]);
-  ws_data.push(["Factura No", "numero", ""]);
+  ws_data.push(["Nombre", "Nombre del cliente", ""]);
+  ws_data.push(["Factura No", "", ""]);
 
   // Crear hoja y libro de Excel
   const ws = XLSX.utils.aoa_to_sheet(ws_data);
@@ -240,6 +241,7 @@ function mostrarImagen(event) {
   let imagen = document.getElementById("verImagen");
   imagen.src = URL.createObjectURL(event.target.files[0]);
 }
+
 // script registro
 function guardar() {
   const nombre = document.getElementById("txtNombre").value;
@@ -290,7 +292,9 @@ function factura() {
   data.fecha = fecha;
   data.total = parseFloat(total);
   data.nombre = nombre;
-
+  if(nombre == ""){
+    return false;
+  }
   fetch("http://localhost:8000/factura", {
     headers: {
       "Content-Type": "application/json",
@@ -300,13 +304,13 @@ function factura() {
   })
     .then((response) => response.json())
     .then((data) => {
+      
       if (data.status == "ok") {
         // Limpiar el carrito después de 2 segundos
     setTimeout(() => {
       cart = [];
       cartCount = 0;
       document.getElementById("cartCount").textContent = cartCount;
-
       // Mostrar notificación de éxito
       Toastify({
         text: data.msg,
