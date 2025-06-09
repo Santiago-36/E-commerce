@@ -143,6 +143,9 @@ function exportExcel() {
   });
 
   ws_data.push(["", "Total", total]);
+  ws_data.push(["", "", ""]);
+  ws_data.push(["Nombre", "Nombre del cliemte", ""]);
+  ws_data.push(["Factura No", "numero", ""]);
 
   // Crear hoja y libro de Excel
   const ws = XLSX.utils.aoa_to_sheet(ws_data);
@@ -152,6 +155,55 @@ function exportExcel() {
   // Generar y descargar el archivo Excel
   XLSX.writeFile(wb, "carrito.xlsx");
 }
+function exportPDF() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+
+  // Encabezado
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(18);
+  doc.text("Factura", 20, 20);
+
+  // Datos del carrito
+  let y = 40;
+  doc.setFontSize(12);
+  doc.text("Productos", 20, y);
+  doc.text("Precio", 90, y);
+  doc.text("Subtotal", 140, y);
+
+  y += 10;
+  let total = 0;
+
+  cart.forEach((item) => {
+    doc.text(item.name, 20, y);
+    doc.text(`$${item.price.toFixed(2)}`, 90, y);
+    doc.text(`$${item.price.toFixed(2)}`, 140, y);
+    total += item.price;
+    y += 10;
+  });
+
+  // Línea separadora
+  doc.line(20, y, 180, y);
+  y += 10;
+
+  // Total
+  doc.setFont("helvetica", "bold");
+  doc.text("Total:", 90, y);
+  doc.text(`$${total.toFixed(2)}`, 140, y);
+
+  y += 10;
+
+  doc.setFontSize(10);
+  doc.setFont("helvetica", "bold");
+  doc.text("Nombre", 20, y);
+  y += 10;
+  doc.setFontSize(10);
+  doc.setFont("helvetica", "bold");
+  doc.text("Nombre del cliente", 20, y);
+  // Descargar el archivo
+  doc.save("carrito.pdf");
+}
+
 
 function filterCategory(category) {
   const cards = document.querySelectorAll(".card");

@@ -6,6 +6,8 @@
     <title>Yumothings página</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
 
 </head>
 <body>
@@ -33,6 +35,7 @@
                     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
                 </div>
                 <button onclick="exportExcel()">Exportar a Excel</button>
+                <button onclick="exportPDF()">Exportar a Pdf</button>
             </div>
         </div>
     </header>
@@ -215,7 +218,6 @@
             <!-- Botones del carrito -->
             <div class="cart-buttons">
                 <form action="" class="formulario">
-
                 <input type="text" placeholder=" Ingresar Nombre" id="nombre" name="nombre" required/>
                 <button type="submit" class="cart-buy-btn" onclick="buyCart();factura();" id="comprar">
                     💳 Comprar
