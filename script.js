@@ -3,6 +3,7 @@ let cart = [];
 let cartCount = 0;
 let total = 0;
 let Id = "";
+let Fnombre = "";
 
 function addToCart(productName, price) {
   cart.push({ name: productName, price: price });
@@ -127,6 +128,28 @@ function filterCategory(category) {
   });
 }
 
+function showAdditionalButtons() {
+  document.getElementById('additionalButtons').classList.add('show');
+}
+// Función para mostrar los botones adicionales
+function showAdditionalButtons() {
+  const nombre = document.getElementById("nombre").value;
+  if (nombre == ""){
+    return false;
+  }
+  else{
+  const additionalButtons = document.getElementById('additionalButtons');
+  const comprarBtn = document.getElementById('comprar');
+  
+  // Mostrar los botones adicionales con animación
+  additionalButtons.classList.add('show');
+  
+  // Opcional: ocultar o cambiar el botón original
+  // comprarBtn.textContent = '✓ Procesando...';
+  // comprarBtn.disabled = true;
+  }
+}
+
 // Cerrar modal al hacer clic fuera de él
 window.onclick = function (event) {
   const modal = document.getElementById("cartModal");
@@ -136,6 +159,7 @@ window.onclick = function (event) {
 };
 
 function exportExcel() {
+  const nombre = document.getElementById("nombre").value;
   // Estructura de datos para la hoja de cálculo
   const ws_data = [["Producto", "Precio", "subtotal"]];
   let total = cart.reduce((sum, item) => sum + item.price, 0);
@@ -147,8 +171,8 @@ function exportExcel() {
 
   ws_data.push(["", "Total", total]);
   ws_data.push(["", "", ""]);
-  ws_data.push(["Nombre", "Nombre del cliente", ""]);
-  ws_data.push(["Factura No", "", ""]);
+  ws_data.push(["Nombre", Fnombre, ""]);
+
 
   // Crear hoja y libro de Excel
   const ws = XLSX.utils.aoa_to_sheet(ws_data);
@@ -202,7 +226,7 @@ function exportPDF() {
   y += 10;
   doc.setFontSize(10);
   doc.setFont("helvetica", "bold");
-  doc.text("Nombre del cliente", 20, y);
+  doc.text(Fnombre, 20, y);
   // Descargar el archivo
   doc.save("carrito.pdf");
 }
@@ -286,7 +310,7 @@ function factura() {
   document.getElementById("fecha").textContent = fecha;
   let total = cart.reduce((sum, item) => sum + item.price, 0);
   const nombre = document.getElementById("nombre").value;
-
+  Fnombre = nombre
   document.getElementById("nombre").value = "";
 
   data.fecha = fecha;

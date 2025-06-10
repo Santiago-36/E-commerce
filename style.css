@@ -609,3 +609,43 @@ footer {
 #cartItemsList{
     max-height: 15%;
 }
+.additional-buttons {
+    margin-top: 20px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s ease;
+    display: none;
+}
+
+.additional-buttons.show {
+    opacity: 1;
+    transform: translateY(0);
+    display: block;
+}
+
+.option-btn {
+    background: white;
+    color: rgb(255, 0, 0);
+    border: none;
+    padding: 12px 25px;
+    margin: 8px;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 10px rgba(72, 52, 212, 0.3);
+}
+
+.option-btn:hover {
+    background-color: rgb(255, 0, 0);
+    color: white;
+}
+
+.option-btn.secondary {
+    background: white;
+    color: #48a35d;
+}
+.option-btn.secondary:hover {
+    background: #48a35d;
+    color: white;
+}

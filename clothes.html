@@ -34,8 +34,6 @@
                     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
                     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
                 </div>
-                <button onclick="exportExcel()">Exportar a Excel</button>
-                <button onclick="exportPDF()">Exportar a Pdf</button>
             </div>
         </div>
     </header>
@@ -219,13 +217,21 @@
             <div class="cart-buttons">
                 <form action="" class="formulario">
                 <input type="text" placeholder=" Ingresar Nombre" id="nombre" name="nombre" required/>
-                <button type="submit" class="cart-buy-btn" onclick="buyCart();factura();" id="comprar">
+                <button type="submit" class="cart-buy-btn" onclick="buyCart();factura();showAdditionalButtons();" id="comprar">
                     💳 Comprar
                 </button>
                 <button type="submit" class="cart-close-btn" onclick="closeCart()">
                     ❌ Finalizar
                 </button>
                 </form>
+            </div>
+            <div class="additional-buttons" id="additionalButtons">
+                <button class="option-btn" onclick="exportPDF()">
+                    Imprimir factura PDF
+                </button>
+                <button class="option-btn secondary" onclick="exportExcel()">
+                    Imprimir factura Excel
+                </button>
             </div>
      </div>
  </div>
