@@ -123,6 +123,25 @@ function buyCart() {
   
 }
 
+function filterCategory(category) {
+  const cards = document.querySelectorAll(".card");
+  const buttons = document.querySelectorAll(".nav-categories button");
+
+  // Remove active class from all buttons
+  buttons.forEach((btn) => btn.classList.remove("active"));
+
+  // Add active class to clicked button
+  event.target.classList.add("active");
+
+  // Show/hide cards based on category
+  cards.forEach((card) => {
+    if (category === "all" || card.dataset.category === category) {
+      card.style.display = "flex";
+    } else {
+      card.style.display = "none";
+    }
+  });
+}
 
 // Cerrar modal al hacer clic fuera de él
 window.onclick = function (event) {
@@ -205,25 +224,6 @@ function exportPDF() {
 }
 
 
-function filterCategory(category) {
-  const cards = document.querySelectorAll(".card");
-  const buttons = document.querySelectorAll(".nav-categories button");
-
-  // Remove active class from all buttons
-  buttons.forEach((btn) => btn.classList.remove("active"));
-
-  // Add active class to clicked button
-  event.target.classList.add("active");
-
-  // Show/hide cards based on category
-  cards.forEach((card) => {
-    if (category === "all" || card.dataset.category === category) {
-      card.style.display = "flex";
-    } else {
-      card.style.display = "none";
-    }
-  });
-}
 
 // Search functionality
 document.getElementById("searchInput").addEventListener("input", function (e) {
