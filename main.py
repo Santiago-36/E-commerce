@@ -64,7 +64,8 @@ def list_products():
 def create_factura(prod: factura): # Endpoint
     try:
         print(prod.model_dump())
-        supabase.table("factura").insert(prod.model_dump()).execute()
+        res = supabase.table("factura").insert(prod.model_dump()).execute()
+        print(res)
         return {"status":"ok", "msg":"Compra exitosa"}
     except Exception as ex:
         return {"status": "error", "msg": ex}
