@@ -134,10 +134,7 @@ function showAdditionalButtons() {
 // Función para mostrar los botones adicionales
 function showAdditionalButtons() {
   const nombre = document.getElementById("nombre").value;
-  if (nombre == ""){
-    return false;
-  }
-  else{
+  
   const additionalButtons = document.getElementById('additionalButtons');
   const comprarBtn = document.getElementById('comprar');
   
@@ -147,7 +144,7 @@ function showAdditionalButtons() {
   // Opcional: ocultar o cambiar el botón original
   // comprarBtn.textContent = '✓ Procesando...';
   // comprarBtn.disabled = true;
-  }
+  
 }
 
 // Cerrar modal al hacer clic fuera de él
@@ -303,7 +300,13 @@ function guardar() {
       }
     });
 }
-//
+//limpiar carrito
+function LimpiarCarrito() {
+  cart = [];
+  cartCount = 0;
+  document.getElementById("cartCount").textContent = cartCount;
+}
+
 data = {};
 function factura() {
   const fecha = new Date().toLocaleDateString();
@@ -332,9 +335,6 @@ function factura() {
       if (data.status == "ok") {
         // Limpiar el carrito después de 2 segundos
     setTimeout(() => {
-      cart = [];
-      cartCount = 0;
-      document.getElementById("cartCount").textContent = cartCount;
       // Mostrar notificación de éxito
       Toastify({
         text: data.msg,
