@@ -74,6 +74,7 @@ def create_factura(prod: factura): # Endpoint
 def list_factura():
     res = supabase.table("factura").select("").execute()
     return res.data
+    
 
 
 

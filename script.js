@@ -134,7 +134,9 @@ function showAdditionalButtons() {
 // Función para mostrar los botones adicionales
 function showAdditionalButtons() {
   const nombre = document.getElementById("nombre").value;
-  
+  if (nombre = ""){
+    return false;
+  }
   const additionalButtons = document.getElementById('additionalButtons');
   const comprarBtn = document.getElementById('comprar');
   
@@ -349,4 +351,5 @@ function factura() {
         alert(data.msg.details);
       }
     });
+
 }
