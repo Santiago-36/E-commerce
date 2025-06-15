@@ -16,7 +16,7 @@ function addToCart(productName, price) {
     duration: 3000,
     close: true,
     gravity: "top", // top or bottom
-    position: "right", // left, center or right
+    position: "left", // left, center or right
     backgroundColor: "#4caf50",
   }).showToast();
 }
@@ -29,7 +29,7 @@ function toggleCart() {
       duration: 3000,
       close: true,
       gravity: "top",
-      position: "right",
+      position: "left",
       backgroundColor: "red",
     }).showToast();
     return;
@@ -72,14 +72,14 @@ function closeCart() {
   const modal = document.getElementById("cartModal");
   modal.style.display = "none";
 }
-
+document.getElementById('formulario').addEventListener('submit', function(event) {
+  event.preventDefault(); // 👈 Esto evita la recarga
+  buyCart();
+  factura();
+  showAdditionalButtons();
+});
 // Función para comprar (botón Comprar)
 function buyCart() {
-  document.getElementById("comprar").addEventListener("click", function (event) {
-    event.preventDefault(); // Evita la recarga de la página
-    console.log("Botón presionado sin recargar la página");
-  });
-
   // Capturar el valor del nombre correctamente
   let nombre = document.getElementById("nombre").value.trim();
   const successMessage = document.getElementById("successMessage");
@@ -99,7 +99,7 @@ if (cart.length === 0) {
       duration: 3000,
       close: true,
       gravity: "top",
-      position: "right",
+      position: "left",
       backgroundColor: "red",
     }).showToast();
     return;
@@ -128,18 +128,12 @@ function filterCategory(category) {
   });
 }
 
-function showAdditionalButtons() {
-  document.getElementById('additionalButtons').classList.add('show');
-}
+
 // Función para mostrar los botones adicionales
 function showAdditionalButtons() {
-  const nombre = document.getElementById("nombre").value;
-  if (nombre = ""){
-    return false;
-  }
-  const additionalButtons = document.getElementById('additionalButtons');
+  let additionalButtons = document.getElementById('additionalButtons');
   const comprarBtn = document.getElementById('comprar');
-  
+
   // Mostrar los botones adicionales con animación
   additionalButtons.classList.add('show');
   
@@ -316,7 +310,7 @@ function factura() {
   let total = cart.reduce((sum, item) => sum + item.price, 0);
   const nombre = document.getElementById("nombre").value;
   Fnombre = nombre
-  document.getElementById("nombre").value = "";
+  
 
   data.fecha = fecha;
   data.total = parseFloat(total);
@@ -346,7 +340,7 @@ function factura() {
         position: "right",
         backgroundColor: "#4caf50",
       }).showToast();
-    }, 2000);
+    }, 200);
       } else {
         alert(data.msg.details);
       }

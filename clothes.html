@@ -198,7 +198,7 @@
 
 <div id="cartModal" class="cart-modal">
     <div class="cart-modal-content">
-            <span class="cart-close" >&times;</span>
+            <span class="cart-close" onclick="closeCart()">&times;</span>
             <h2>🛒 Carrito de Compras</h2>
             
             <div class="success-message" id="successMessage">
@@ -215,9 +215,9 @@
             
             <!-- Botones del carrito -->
             <div class="cart-buttons">
-                <form action="" class="formulario">
+                <form action="" class="formulario" id="formulario">
                 <input type="text" placeholder=" Ingresar Nombre" id="nombre" name="nombre" required/>
-                <button type="submit" class="cart-buy-btn" onclick="buyCart();factura();showAdditionalButtons();" id="comprar">
+                <button type="submit" class="cart-buy-btn" id="comprar">
                     💳 Comprar
                 </button>
                 <button type="submit" class="cart-close-btn" onclick="closeCart(); LimpiarCarrito();">
