@@ -6,9 +6,22 @@ let Id = "";
 let Fnombre = "";
 
 function addToCart(productName, price) {
-  cart.push({ name: productName, price: price });
-  cartCount++;
+  
+  // Buscar si el producto ya existe en el carrito
+  const productoExistente = cart.find(item => item.name === productName);
+
+  if (productoExistente) {
+    // Si ya existe, aumenta la cantidad
+    productoExistente.cantidad++;
+  } else {
+    // Si no existe, lo agrega con cantidad 1
+    cart.push({ name: productName, price: price, cantidad: 1 });
+  }
+
+  // Actualizar el total del contador (sumar todas las cantidades)
+  cartCount = cart.reduce((total, item) => total + item.cantidad, 0);
   document.getElementById("cartCount").textContent = cartCount;
+
 
   // Simple notification
   Toastify({
@@ -49,7 +62,7 @@ function toggleCart() {
     cartItem.className = "cart-item";
     cartItem.innerHTML = `
                     <div class="cart-item-info">
-                        <div class="cart-item-name">${item.name}</div>
+                        <div class="cart-item-name">${item.name}<span class="cantidad"> x ${item.cantidad}</span></div>
                         <div class="cart-item-price">$${item.price.toLocaleString()} COP</div>
                     </div>
                 `;
@@ -57,7 +70,7 @@ function toggleCart() {
   });
 
   // Calcular y mostrar total
-  let total = cart.reduce((sum, item) => sum + item.price, 0);
+  let total = cart.reduce((sum, item) => sum + item.price*item.cantidad, 0);
   cartTotal.textContent = `Total: $${total.toLocaleString()} COP`;
 
   // Mostrar el modal
@@ -69,6 +82,12 @@ function toggleCart() {
 
 // Función para cerrar el carrito (botón Finalizar)
 function closeCart() {
+  let additionalButtons = document.getElementById('additionalButtons');
+  
+
+  // Mostrar los botones adicionales con animación
+  additionalButtons.classList.remove('show');
+
   const modal = document.getElementById("cartModal");
   modal.style.display = "none";
 }
@@ -132,7 +151,7 @@ function filterCategory(category) {
 // Función para mostrar los botones adicionales
 function showAdditionalButtons() {
   let additionalButtons = document.getElementById('additionalButtons');
-  const comprarBtn = document.getElementById('comprar');
+  
 
   // Mostrar los botones adicionales con animación
   additionalButtons.classList.add('show');
@@ -154,17 +173,17 @@ window.onclick = function (event) {
 function exportExcel() {
   const nombre = document.getElementById("nombre").value;
   // Estructura de datos para la hoja de cálculo
-  const ws_data = [["Producto", "Precio", "subtotal"]];
-  let total = cart.reduce((sum, item) => sum + item.price, 0);
+  const ws_data = [["Producto","Cantidad", "Precio", "subtotal"]];
+  let total = cart.reduce((sum, item) => sum + item.price*item.cantidad, 0);
   // Llenar los datos del carrito
   cart.forEach((item) => {
-    const subtotal = item.price;
-    ws_data.push([item.name, item.price, subtotal]);
+    const subtotal = item.price*item.cantidad;
+    ws_data.push([item.name,item.cantidad, item.price, subtotal]);
   });
 
-  ws_data.push(["", "Total", total]);
-  ws_data.push(["", "", ""]);
-  ws_data.push(["Nombre", Fnombre, ""]);
+  ws_data.push(["","", "Total", total]);
+  ws_data.push(["", "", "",""]);
+  ws_data.push(["Nombre", Fnombre, "",""]);
 
 
   // Crear hoja y libro de Excel
@@ -182,23 +201,24 @@ function exportPDF() {
   // Encabezado
   doc.setFont("helvetica", "bold");
   doc.setFontSize(18);
-  doc.text("Factura", 20, 20);
+  doc.text("Factura", 20, 20,20,20);
 
   // Datos del carrito
   let y = 40;
   doc.setFontSize(12);
   doc.text("Productos", 20, y);
-  doc.text("Precio", 90, y);
+  doc.text("Cantidad", 60, y);
+  doc.text("Precio", 100, y);
   doc.text("Subtotal", 140, y);
 
   y += 10;
-  let total = 0;
+  let total = cart.reduce((sum, item) => sum + item.price*item.cantidad, 0);
 
   cart.forEach((item) => {
     doc.text(item.name, 20, y);
-    doc.text(`$${item.price.toFixed(2)}`, 90, y);
-    doc.text(`$${item.price.toFixed(2)}`, 140, y);
-    total += item.price;
+    doc.text(`${item.cantidad}`, 60, y);
+    doc.text(`$${item.price.toFixed(2)}`, 100, y);
+    doc.text(`$${item.price*item.cantidad.toFixed(2)}`, 140, y);
     y += 10;
   });
 

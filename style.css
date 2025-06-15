@@ -459,6 +459,7 @@ footer {
 .cart-modal-content {
   background-color: white;
   margin: 5% auto;
+  margin-top: 0;
   padding: 20px;
   border-radius: 10px;
   width: 80%;
@@ -537,7 +538,7 @@ footer {
 .cart-total {
   font-weight: bold;
   font-size: 20px;
-  margin: 20px 0;
+  margin: 0;
   text-align: right;
   padding: 15px;
   background-color: #f8f9fa;
@@ -549,8 +550,8 @@ footer {
   display: flex;
   justify-content: center;
   gap: 15px;
-  margin-top: 25px;
-  padding-top: 20px;
+  margin-top: 0;
+  padding-top: 5px;
   border-top: 2px solid #eee;
 }
 
@@ -616,7 +617,7 @@ footer {
   }
 }
 #cartItemsList {
-  max-height: 200px; /* Ajusta según tu diseño */
+  max-height: 150px; /* Ajusta según tu diseño */
   overflow-y: auto;
   margin-bottom: 1rem; /* Espacio para separar del total */
 }
@@ -630,8 +631,9 @@ footer {
 
 .additional-buttons.show {
   opacity: 1;
+  justify-content: center;
   transform: translateY(0);
-  display: block;
+  display: flex;
 }
 
 .option-btn {
